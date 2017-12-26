@@ -1,0 +1,469 @@
+//global variables
+float gravity = 0.3;
+float velocity = 0;
+boolean intro=true;
+boolean end=true;
+int score=0;
+
+
+//defining class
+class Bird{
+    float x;
+    float y;
+
+//constructor 
+    Bird(float x, float y){
+        this.x = x;
+        this.y = y;
+        
+    }
+    
+// method that makes the owl appear on the screen 
+    void appear(){
+        //wings and ears
+        stroke(0);
+        fill(139,101,8);
+        triangle(x, y, x-12.5, y, x-12.5, y-20);
+        triangle(x, y, x+12.5, y, x+12.5, y-20);
+        triangle(x, y+10, x, y-5, x+20, y+5);
+        triangle(x, y+10, x, y-5, x-20, y+5);
+        
+        //body
+        fill(205,133,0);
+        ellipse(x, y, 25, 25);
+        
+        //eyes
+        fill(238,201,0);
+        ellipse(x+6.25, y-3.25, 10, 10);
+        ellipse(x-6.25, y-3.25, 10, 10);
+        fill(0);
+        ellipse(x+6.25, y-3.25, 5, 5);
+        ellipse(x-6.25, y-3.25, 5, 5);
+        
+        //mouth
+        fill(215,215,0);
+        triangle(x-3.25, y+3, x +3.25, y+3, x, y +8);
+    
+    }
+    
+// methods that make the owl move     
+    void update(){
+        velocity += gravity;
+        y += velocity;
+        
+        if (y > height){
+            y = height;
+            velocity = 0;
+        }
+        
+        if (y < 0){
+            y = 0;
+            velocity = 0;
+        }
+    }
+    
+    void up(){
+        velocity -= gravity * 20;
+    }
+    
+   
+    
+    
+}
+
+//defining class
+class Castle{
+    float top = random(height/2);
+    float bottom = random(height/2)-10;
+    float x = width;
+    float w =50;
+    float y =0;
+    
+    
+// method that checks if the owl hit an object      
+    void hit(){
+        for (int i = 0; i < castles.length; i++){
+            if((bird1.y < top|| bird1.y > height - bottom) && (bird1.x > x && bird1.x < x + w)){ 
+                end = false;
+                //score++;
+            }
+        }
+    
+    }
+ 
+// keeps track of score     
+    void points(){
+        for (int i = 0; i < castles.length; i++){
+            if((y+top <bird1.y && bird1.y <height-bottom) && (bird1.x > x && bird1.x < x + 5) ){ 
+                score = score+1;
+      
+            }
+        }
+    }
+    
+// method that makes the lantern and castle tops appear    
+    void show(){
+        
+        //makes the chain attached to the lantern
+        noStroke();
+        fill(25,25,112);
+        rect(x, y, w-40, top);
+        stroke(0);
+        fill(132,132,132);
+        ellipse(x+5, (y + top)-350, 15, 15);
+        ellipse(x+5, (y + top)-340, 15, 15);
+        ellipse(x+5, (y + top)-330, 15, 15);
+        ellipse(x+5, (y + top)-320, 15, 15);
+        ellipse(x+5, (y + top)-310, 15, 15);
+        ellipse(x+5, (y + top)-300, 15, 15);
+        ellipse(x+5, (y + top)-290, 15, 15);
+        ellipse(x+5, (y + top)-280, 15, 15);
+        ellipse(x+5, (y + top)-270, 15, 15);
+        ellipse(x+5, (y + top)-260, 15, 15);
+        ellipse(x+5, (y + top)-250, 15, 15);
+        ellipse(x+5, (y + top)-240, 15, 15);
+        ellipse(x+5, (y + top)-230, 15, 15);
+        ellipse(x+5, (y + top)-220, 15, 15);
+
+        ellipse(x+5, (y + top)-210, 15, 15);
+        ellipse(x+5, (y + top)-200, 15, 15);
+        ellipse(x+5, (y + top)-190, 15, 15);
+        ellipse(x+5, (y + top)-180, 15, 15);
+        ellipse(x+5, (y + top)-170, 15, 15);
+        ellipse(x+5, (y + top)-160, 15, 15);
+        ellipse(x+5, (y + top)-150, 15, 15);
+        ellipse(x+5, (y + top)-140, 15, 15);
+        ellipse(x+5, (y + top)-130, 15, 15);
+        ellipse(x+5, (y + top)-120, 15, 15);
+        ellipse(x+5, (y + top)-110, 15, 15);
+        ellipse(x+5, (y + top)-100, 15, 15);
+        ellipse(x+5, (y + top)-90, 15, 15);
+
+        fill(25,25,112);
+        ellipse(x+5, (y + top)-350, 5, 5);
+        ellipse(x+5, (y + top)-340, 5, 5);
+        ellipse(x+5, (y + top)-330, 5, 5);
+        ellipse(x+5, (y + top)-320, 5, 5);
+        ellipse(x+5, (y + top)-310, 5, 5);
+        ellipse(x+5, (y + top)-300, 5, 5);
+        ellipse(x+5, (y + top)-290, 5, 5);
+        ellipse(x+5, (y + top)-280, 5, 5);
+        ellipse(x+5, (y + top)-270, 5, 5);
+        ellipse(x+5, (y + top)-260, 5, 5);
+        ellipse(x+5, (y + top)-250, 5, 5);
+        ellipse(x+5, (y + top)-240, 5, 5);
+        ellipse(x+5, (y + top)-230, 5, 5);
+        ellipse(x+5, (y + top)-220, 5, 5);
+
+        ellipse(x+5, (y + top)-210, 5, 5);
+        ellipse(x+5, (y + top)-200, 5, 5);
+        ellipse(x+5, (y + top)-190, 5, 5);
+        ellipse(x+5, (y + top)-180, 5, 5);
+        ellipse(x+5, (y + top)-170, 5, 5);
+        ellipse(x+5, (y + top)-160, 5, 5);
+        ellipse(x+5, (y + top)-150, 5, 5);
+        ellipse(x+5, (y + top)-140, 5, 5);
+        ellipse(x+5, (y + top)-130, 5, 5);
+        ellipse(x+5, (y + top)-120, 5, 5);
+        ellipse(x+5, (y + top)-110, 5, 5);
+        ellipse(x+5, (y + top)-100, 5, 5);
+        ellipse(x+5, (y + top)-90, 5, 5);
+        
+        //makes the lantern
+        fill(0);
+        rect(x, (y+top)-30, w-40, 30);
+        
+        fill(255,0,0,100);
+        quad(x-20, (y + top)-60, x+30, (y + top)-60, x+15, (y + top), x-5, (y + top));
+        
+        fill(0);
+        quad(x-5, (y+top) -60, x, (y+top) -60, x - 15,  (y+top) -30, x -15,  (y+top) -30 );
+        quad(x+15, (y+top) -60, x+10, (y+top) -60, x + 25,  (y+top) -30, x +25,  (y+top) -30); 
+
+        quad(x - 16,  (y+top) -40, x -15,  (y+top) -30, x+20, (y+top)+5, x+20, (y+top)+5);
+        quad(x +26,  (y+top) -40, x +25,  (y+top) -30, x-10, (y+top)+5, x-10, (y+top)+5);
+        ellipse(x-2, (y + top)-45, 10, 10);
+        ellipse(x+12, (y + top)-45, 10, 10);
+
+        rect(x-10,(y + top), w-20, 5);
+        quad(x+15, (y + top), x+20,(y + top)+10, x+30, (y + top)-60, x+25, (y + top)-60);
+        quad(x-5, (y + top), x-10, (y + top)+10,x-20, (y + top)-60, x-15, (y + top)-60);
+
+        triangle(x-25, (y + top)-60, x+35, (y + top)-60, x+5, (y+top)-90);
+
+        triangle(x, (y+top)-45, x+10, (y+top)-45, x+5, (y+top)-30);
+        ellipse(x-2, (y + top)-45, 10, 10);
+        ellipse(x+12, (y + top)-45, 10, 10);
+        
+        fill(205,38,38,100);
+        ellipse(x-2, (y + top)-45, 8, 8);
+        ellipse(x+12, (y + top)-45, 8, 8);
+
+
+        fill(0);
+        rect(x-3, (y+top)-50, 1, 10);
+        rect(x+12, (y+top)-50, 1, 10);
+
+
+
+        // makes the castle tops
+        stroke(0);
+        fill(0,100,0);
+        rect(x, (height-bottom)+20, w, bottom);
+
+        fill(110,110,110);
+        rect(x, height-bottom, w-40, bottom);
+
+        fill(163,163,163);
+        rect(x+20, height-bottom, w-40, bottom);
+
+        fill(110,110,110);
+        rect(x+40, height-bottom, w-40, bottom);
+
+        fill(163,163,163);
+        rect(x, height-bottom+10 , w-25, bottom);
+        fill(135,135,135);
+        rect(x+25, height-bottom+10 , w-25, bottom);
+
+        fill(82,82,82);
+        rect(x, height-bottom+20 , w, bottom);
+
+        fill(110,110,110);
+        rect(x, height-bottom+30 , w-25, bottom);
+        fill(163,163,163);
+        rect(x+25, height-bottom+30 , w-25, bottom);
+
+        fill(82,82,82);
+        rect(x, height-bottom+40 , w, bottom);
+
+        fill(135,135,135);
+        rect(x, height-bottom+50 , w-25, bottom);
+        fill(110,110,110);
+        rect(x+25, height-bottom+50 , w-25, bottom);
+
+        fill(163,163,163);
+        rect(x, height-bottom+60 , w, bottom);
+
+        fill(82,82,82);
+        rect(x, height-bottom+70 , w-25, bottom);
+        fill(110,110,110);
+        rect(x+25, height-bottom+70 , w-25, bottom);
+
+        fill(135,135,135);
+        rect(x, height-bottom+80 , w, bottom);
+
+        fill(82,82,82);
+        rect(x, height-bottom+90 , w-25, bottom);
+        fill(163,163,163);
+        rect(x+25, height-bottom+90 , w-25, bottom);
+
+        fill(135,135,135);
+        rect(x, height-bottom+100 , w, bottom);
+
+        fill(110,110,110);
+        rect(x, height-bottom+110 , w-25, bottom);
+        fill(163,163,163);
+        rect(x+25, height-bottom+110 , w-25, bottom);
+
+
+        fill(110,110,110);
+        rect(x, height-bottom+120 , w, bottom);
+
+        fill(135,135,135);
+        rect(x, height-bottom+130 , w-25, bottom);
+        fill(163,163,163);
+        rect(x+25, height-bottom+130 , w-25, bottom);
+
+        fill(163,163,163);
+        rect(x, height-bottom+140 , w, bottom);
+
+        fill(135,135,135);
+        rect(x, height-bottom+150 , w-25, bottom);
+        fill(110,110,110);
+        rect(x+25, height-bottom+150 , w-25, bottom);
+
+        fill(82,82,82);
+        rect(x, height-bottom+160 , w, bottom);
+
+        fill(163,163,163);
+        rect(x, height-bottom+170 , w-25, bottom);
+        fill(135,135,135);
+        rect(x+25, height-bottom+170 , w-25, bottom);
+
+        fill(110,110,110);
+        rect(x, height-bottom+180 , w, bottom);
+
+        fill(82,82,82);
+        rect(x, height-bottom+190 , w-25, bottom);
+        fill(135,135,135);
+        rect(x+25, height-bottom+190 , w-25, bottom);
+
+
+        fill(110,110,110);
+        rect(x, height-bottom+200 , w, bottom);
+
+        fill(163,163,163);
+        rect(x, height-bottom+210 , w-25, bottom);
+        fill(135,135,135);
+        rect(x+25, height-bottom+210 , w-25, bottom);
+
+        fill(82,82,82);
+        rect(x, height-bottom+220 , w, bottom);
+
+        fill(135,135,135);
+        rect(x, height-bottom+230 , w-25, bottom);
+        fill(110,110,110);
+        rect(x+25, height-bottom+230 , w-25, bottom);
+
+        fill(82,82,82);
+        rect(x, height-bottom+240 , w, bottom);
+
+        fill(110,110,110);
+        rect(x, height-bottom+250 , w-25, bottom);
+        fill(163,163,163);
+        rect(x+25, height-bottom+250 , w-25, bottom);
+
+        fill(135,135,135);
+        rect(x, height-bottom+260 , w, bottom);
+
+        fill(163,163,163);
+        rect(x, height-bottom+270 , w-25, bottom);
+        fill(82,82,82);
+        rect(x+25, height-bottom+270 , w-25, bottom);
+
+        fill(110,110,110);
+        rect(x, height-bottom+280 , w, bottom);
+
+        fill(135,135,135);
+        rect(x, height-bottom+290 , w-25, bottom);
+        fill(163,163,163);
+        rect(x+25, height-bottom+290 , w-25, bottom);
+
+        fill(82,82,82);
+        rect(x, height-bottom+300 , w, bottom);
+
+        fill(135,135,135);
+        rect(x, height-bottom+310 , w-25, bottom);
+        fill(110,110,110);
+        rect(x+25, height-bottom+310 , w-25, bottom);
+
+        fill(135,135,135);
+        rect(x, height-bottom+320 , w, bottom);
+
+        fill(163,163,163);
+        rect(x, height-bottom+330 , w-25, bottom);
+        fill(110,110,110);
+        rect(x+25, height-bottom+330 , w-25, bottom);
+
+        fill(82,82,82);
+        rect(x, height-bottom+340 , w, bottom);
+
+        fill(163,163,163);
+        rect(x, height-bottom+350 , w-25, bottom);
+        fill(82,82,82);
+        rect(x+25, height-bottom+350 , w-25, bottom);
+    }
+    
+    // method that makes the lantern and the castle tops move to the left 
+    void update(){
+        x -= 3;
+    }
+}
+
+// makes the owl move up by pressing any key
+void keyPressed(){
+        bird1.up();
+        intro = false;
+    
+        
+}
+
+    
+Bird bird1; //declaration of variable bird1 with the type Bird
+Castle[] castles; //declaration of array castles with the type Castle
+
+void setup(){
+    size(400, 700);
+    
+    bird1 = new Bird(25, height/2); //creating instance and assigning value to parameters of constructor
+    castles = new Castle[100]; //creating an array with 100 instances 
+    
+    for (int i = 0; i < castles.length; i++){
+        castles[i] = new Castle();
+        width+= 150;
+    }
+
+}
+
+void draw(){
+    // everything in the background of game
+    background(25,25,112);
+    
+    //grass
+    noStroke();
+    fill(69,139,0);
+    ellipse(300, 500, 300, 250);
+    fill(34,139,34);
+    ellipse(100, 500, 300, 200);
+    fill(0,128,0);
+    ellipse(0, 500, 300, 100);
+    fill(48,128,20);
+    ellipse(200, 500, 300, 100);
+    fill(0,100,0);
+    rect(0, 500, 400, 200);
+    
+    //moon
+    fill(128,128,128);
+    ellipse(300, 100, 100, 100);
+    fill(169,169,169);
+    ellipse(320, 80, 35, 30);
+    fill(192,192,192);
+    ellipse(300, 60, 20, 15);
+    fill(193,193,193);
+    ellipse(280, 120, 20, 20);
+    fill(211,211,211);
+    ellipse(320, 120, 30, 30);
+    fill(192,192,192);
+    ellipse(280, 80, 10, 10);
+    
+    if(intro){
+        bird1.appear();
+        
+        
+        for (int i = 0; i < castles.length; i++){
+            castles[i].show();
+            castles[i].update();
+            castles[i].hit(); 
+        }
+        fill(255);
+        textFont(createFont("Arial", 20));
+        text("Owl's Adventure at Bryn Mawr",65,200);
+        text("Press any key to start",100,250);
+        
+    }else{
+       bird1.update();
+       bird1.appear();
+
+        
+       for (int i = 0; i < castles.length; i++){
+           castles[i].show();
+           castles[i].update();
+           castles[i].hit();
+           castles[i].points();
+        }
+        fill(255);
+        textFont(createFont("Arial", 20));
+        text("Score: " + score,10,30);
+    }
+    
+    if(end==false){
+        fill(255,0,0);
+        textFont(createFont("Arial", 20));
+        text("GAME OVER",150,300);
+        fill(255);
+        textFont(createFont("Arial", 20));
+        text("Score: " + score,10,30);
+    }
+    
+
+}
